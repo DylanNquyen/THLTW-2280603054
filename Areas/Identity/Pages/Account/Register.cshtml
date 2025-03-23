@@ -1,0 +1,183 @@
+﻿@* @page *@
+@* @model NguyenNgocThien_Buoi4.Areas.Identity.Pages.Account.RegisterModel *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Đăng ký"; *@
+@*     Layout = "~/Views/Shared/_Layout.cshtml"; *@
+@* } *@
+
+@* <div class="auth-container"> *@
+@*     <h2>@ViewData["Title"]</h2> *@
+@*     <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"> *@
+@*         <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.FullName" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-user"></i></span> *@
+@*                 <input asp-for="Input.FullName" class="form-control form-control-icon" placeholder="Nhập họ và tên" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.FullName" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.Age" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span> *@
+@*                 <input asp-for="Input.Age" class="form-control form-control-icon" type="number" placeholder="Nhập tuổi" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.Age" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.Address" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span> *@
+@*                 <input asp-for="Input.Address" class="form-control form-control-icon" placeholder="Nhập địa chỉ" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.Address" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.PhoneNumber" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-phone"></i></span> *@
+@*                 <input asp-for="Input.PhoneNumber" class="form-control form-control-icon" placeholder="Nhập số điện thoại" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.Role" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-user-tag"></i></span> *@
+@*                 <select asp-for="Input.Role" class="form-control form-control-icon" asp-items="@Model.Input.RoleList"> *@
+@*                     <option value="">Chọn vai trò</option> *@
+@*                 </select> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.Role" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.Email" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-envelope"></i></span> *@
+@*                 <input asp-for="Input.Email" class="form-control form-control-icon" autocomplete="username" aria-required="true" placeholder="Nhập email của bạn" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.Email" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.Password" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-lock"></i></span> *@
+@*                 <input asp-for="Input.Password" class="form-control form-control-icon" autocomplete="new-password" aria-required="true" placeholder="Nhập mật khẩu" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.Password" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="Input.ConfirmPassword" class="form-label"></label> *@
+@*             <div class="input-group"> *@
+@*                 <span class="input-group-text"><i class="fas fa-lock"></i></span> *@
+@*                 <input asp-for="Input.ConfirmPassword" class="form-control form-control-icon" autocomplete="new-password" aria-required="true" placeholder="Xác nhận mật khẩu" /> *@
+@*             </div> *@
+@*             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span> *@
+@*         </div> *@
+@*         <div class="form-group"> *@
+@*             <button id="registerSubmit" type="submit" class="btn btn-primary">Đăng ký</button> *@
+@*         </div> *@
+@*         <div class="text-center"> *@
+@*             <p> *@
+@*                 Đã có tài khoản? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Đăng nhập ngay</a> *@
+@*             </p> *@
+@*         </div> *@
+@*     </form> *@
+@* </div> *@
+@* @section Scripts { *@
+@*         <partial name="_ValidationScriptsPartial" /> *@
+@* } *@
+
+@page
+@model NguyenNgocThien_BanHang.Areas.Identity.Pages.Account.RegisterModel
+
+@{
+    ViewData["Title"] = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-container">
+    <h2>@ViewData["Title"]</h2>
+    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
+        <div class="form-group">
+            <label asp-for="Input.FullName" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <input asp-for="Input.FullName" class="form-control form-control-icon" placeholder="Nhập họ và tên" />
+            </div>
+            <span asp-validation-for="Input.FullName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Age" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                <input asp-for="Input.Age" class="form-control form-control-icon" type="number" placeholder="Nhập tuổi" />
+            </div>
+            <span asp-validation-for="Input.Age" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Address" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                <input asp-for="Input.Address" class="form-control form-control-icon" placeholder="Nhập địa chỉ" />
+            </div>
+            <span asp-validation-for="Input.Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.PhoneNumber" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                <input asp-for="Input.PhoneNumber" class="form-control form-control-icon" placeholder="Nhập số điện thoại" />
+            </div>
+            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Role" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                <select asp-for="Input.Role" class="form-control form-control-icon" asp-items="@Model.Input.RoleList">
+                    <option value="">Chọn vai trò</option>
+                </select>
+            </div>
+            <span asp-validation-for="Input.Role" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Email" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                <input asp-for="Input.Email" class="form-control form-control-icon" autocomplete="username" aria-required="true" placeholder="Nhập email của bạn" />
+            </div>
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Password" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                <input asp-for="Input.Password" class="form-control form-control-icon" autocomplete="new-password" aria-required="true" placeholder="Nhập mật khẩu" />
+            </div>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                <input asp-for="Input.ConfirmPassword" class="form-control form-control-icon" autocomplete="new-password" aria-required="true" placeholder="Xác nhận mật khẩu" />
+            </div>
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button id="registerSubmit" type="submit" class="btn btn-primary">Đăng ký</button>
+        </div>
+        <div class="text-center">
+            <p>
+                Đã có tài khoản? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Đăng nhập ngay</a>
+            </p>
+        </div>
+    </form>
+</div>
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}

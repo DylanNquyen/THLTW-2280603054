@@ -1,0 +1,10 @@
+.vs/
+*.user
+*.suo
+*.dbmdl
+*.log
+*.vsidx
+
+bin/
+obj/
+publish/

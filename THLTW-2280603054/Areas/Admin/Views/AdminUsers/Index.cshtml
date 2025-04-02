@@ -1,0 +1,249 @@
+﻿@* @model IEnumerable<NguyenNgocThien_BanHang.ViewModels.UserViewModel> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Quản lý người dùng"; *@
+@*     Layout = "~/Views/Shared/_Layout.cshtml"; *@
+@* } *@
+
+@* <div class="container-fluid py-4"> *@
+@*     <!-- Header Section --> *@
+@*     <div class="row mb-4"> *@
+@*         <div class="col-12"> *@
+@*             <div class="card jumbotron text-white shadow-lg rounded-3 border border-accent p-5"> *@
+@*                 <h1 class="display-4 mb-2"><i class="fas fa-users me-4"></i>Quản lý người dùng</h1> *@
+@*                 @* <p class="lead mb-0">Danh sách tài khoản người dùng của Dylan Shop</p> *@ *
+@*                 <hr class="my-3 border-light opacity-50"> *@
+@*                 <div class="d-flex justify-content-between align-items-center"> *@
+@*                     <span class="small">Cập nhật: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</span> *@
+@*                     <a href="#" class="btn btn-outline-light btn-sm"><i class="fas fa-sync-alt me-1"></i> Làm mới</a> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+
+@*     <!-- Users Table Section --> *@
+@*     <div class="row g-4"> *@
+@*         <div class="col-12"> *@
+@*             <div class="card shadow-sm border-0 rounded-3 h-100"> *@
+@*                 <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center"> *@
+@*                     @* <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-users me-2"></i> Danh sách tài khoản</h5> *@ 
+@*                     <a href="http://localhost:5015/Admin/AdminUsers/Create" class="btn btn-primary btn-sm"> *@
+@*                         <i class="fas fa-plus me-1"></i> Tạo mới *@
+@*                     </a> *@
+@*                 </div> *@
+@*                 <div class="card-body"> *@
+@*                     <div class="table-responsive"> *@
+@*                         <table class="table table-hover table-borderless"> *@
+@*                             <thead class="bg-light"> *@
+@*                                 <tr> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.UserName)</th> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.Email)</th> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.FullName)</th> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.Address)</th> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.Roles)</th> *@
+@*                                     <th>@Html.DisplayNameFor(model => model.IsActive)</th> *@
+@*                                     <th class="text-end">Hành động</th> *@
+@*                                 </tr> *@
+@*                             </thead> *@
+@*                             <tbody> *@
+@*                                 @foreach (var item in Model) *@
+@*                                 { *@
+@*                                         <tr> *@
+@*                                             <td>@Html.DisplayFor(modelItem => item.UserName)</td> *@
+@*                                             <td>@Html.DisplayFor(modelItem => item.Email)</td> *@
+@*                                             <td>@Html.DisplayFor(modelItem => item.FullName)</td> *@
+@*                                             <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td> *@
+@*                                             <td>@Html.DisplayFor(modelItem => item.Address)</td> *@
+@*                                             <td>@Html.DisplayFor(modelItem => item.Roles)</td> *@
+@*                                             <td> *@
+@*                                             @if (item.IsActive) *@
+@*                                             { *@
+@*                                                         <span class="badge bg-success">Hoạt động</span> *@
+@*                                             } *@
+@*                                             else *@
+@*                                             { *@
+@*                                                         <span class="badge bg-danger">Không hoạt động</span> *@
+@*                                             } *@
+@*                                             </td> *@
+@*                                             <td class="text-end"> *@
+@*                                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm me-1"> *@
+@*                                                     <i class="fas fa-edit"></i> Sửa *@
+@*                                                 </a> *@
+@*                                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm me-1"> *@
+@*                                                     <i class="fas fa-info-circle"></i> Chi tiết *@
+@*                                                 </a> *@
+@*                                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm"> *@
+@*                                                     <i class="fas fa-trash"></i> Xoá *@
+@*                                                 </a> *@
+@*                                             </td> *@
+@*                                         </tr> *@
+@*                                 } *@
+@*                             </tbody> *@
+@*                         </table> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*         <style> *@
+@*             /* Đảm bảo sử dụng biến màu từ :root */ *@
+@*             .border-accent { *@
+@*                 border-color: var(--accent-color) !important; *@
+@*             } *@
+
+@*             /* Tùy chỉnh jumbotron để giống hình */ *@
+@*             .jumbotron { *@
+@*                 background: linear-gradient(135deg, #333333, #555555); *@
+@*                 border: 1px solid var(--accent-color); *@
+@*                 box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); *@
+@*             } *@
+
+@*             .hover-scale { *@
+@*                 transition: transform 0.3s ease, box-shadow 0.3s ease; *@
+@*             } *@
+@*             .hover-scale:hover { *@
+@*                 transform: translateY(-5px); *@
+@*                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important; *@
+@*             } *@
+@*             .card-header { *@
+@*                 border-bottom: 1px solid rgba(0, 0, 0, 0.05); *@
+@*             } *@
+@*             .table-hover tbody tr:hover { *@
+@*                 background-color: rgba(0, 0, 0, 0.03); *@
+@*             } *@
+@*         </style> *@
+@* } *@
+
+@* Admin/AdminUsers/Index.cshtml *@
+@model IEnumerable<NguyenNgocThien_BanHang.ViewModels.UserViewModel>
+@{
+    ViewData["Title"] = "Quản lý người dùng";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card border border-gold shadow-sm">
+        <div class="card-header bg-header-gradient text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0"><i class="fas fa-users me-2"></i>Quản lý người dùng</h3>
+            <a href="http://localhost:5015/Admin/AdminUsers/Create" class="btn btn-gold">
+                <i class="fas fa-user-plus me-1"></i> Thêm người dùng mới
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <form asp-action="Index" method="get" class="d-flex">
+                        <div class="input-group">
+                            <span class="input-group-text bg-header-gradient text-white border-0">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" name="searchString" class="form-control border-gold" placeholder="Tìm kiếm người dùng..." value="@ViewBag.CurrentFilter">
+                            <button type="submit" class="btn btn-purple">
+                                <i class="fas fa-search me-1"></i> Tìm kiếm
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle border">
+                    <thead class="bg-header-gradient text-white">
+                        <tr>
+                            <th scope="col">Tên đầy đủ</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tên đăng nhập</th>
+                            <th scope="col">Vai trò</th>
+                            <th scope="col" class="text-center">Trạng thái</th>
+                            <th scope="col" class="text-center" style="width: 150px;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                                <tr>
+                                    <td class="fw-medium">@item.FullName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.UserName</td>
+                                    <td>
+                                    @foreach (var role in item.Roles)
+                                    {
+                                                <span class="badge bg-primary me-1">@role</span>
+                                    }
+                                    </td>
+                                    <td class="text-center">
+                                    @if (item.IsActive)
+                                    {
+                                                <span class="badge bg-success">Đang hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                                <span class="badge bg-danger">Không hoạt động</span>
+                                    }
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                                <a href="http://localhost:5015/Admin/AdminUsers/Details/1" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="Chi tiết">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                                <a href="http://localhost:5015/Admin/AdminUsers/Edit/1" class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                                <a href="http://localhost:5015/Admin/AdminUsers/Delete/1" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Xóa">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (!Model.Any())
+            {
+                    <div class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Không có người dùng nào được tìm thấy</p>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <script>
+            $(document).ready(function() {
+                // Hiển thị thông báo lỗi nếu có
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi',
+                                text: '@TempData["ErrorMessage"]',
+                            });
+            </text>
+        }
+
+                // Kích hoạt tooltips
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                });
+
+                // Hiệu ứng hiển thị dòng khi tải trang
+                $('tbody tr').each(function(index) {
+                    $(this).css('opacity', 0);
+                    $(this).delay(100 * index).animate({opacity: 1}, 500);
+                });
+            });
+        </script>
+                        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}

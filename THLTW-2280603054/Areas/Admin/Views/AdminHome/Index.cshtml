@@ -1,0 +1,398 @@
+﻿@model IEnumerable<NguyenNgocThien_BanHang.Models.Order>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card jumbotron text-white shadow-lg rounded-3 border border-accent p-5">
+                <h1 class="display-4 fw-bold mb-2">Chào mừng Dylan Nquyen!</h1>
+                <p class="lead mb-0">Hệ thống báo cáo dữ liệu của Dylan Shop</p>
+                <hr class="my-3 border-light opacity-50">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="small">Cập nhật: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</span>
+                    <a href="#" class="btn btn-outline-light btn-sm"><i class="fas fa-sync-alt me-1"></i> Làm mới</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phần còn lại của trang giữ nguyên -->
+    <!-- Quick Stats Section -->
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 rounded-3 h-100 bg-white hover-scale">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-box-open fa-2x text-primary me-3"></i>
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Tổng sản phẩm</h6>
+                        <h3 class=" text-dark mb-0">@ViewBag.TotalProducts</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 rounded-3 h-100 bg-white hover-scale">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-dollar-sign fa-2x text-success me-3"></i>
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Tổng doanh thu</h6>
+                        <h3 class="text-dark mb-0">@(ViewBag.TotalRevenue?.ToString("N0") ?? "0") đ</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 rounded-3 h-100 bg-white hover-scale">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-shopping-cart fa-2x text-info me-3"></i>
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Tổng đơn hàng</h6>
+                        <h3 class=" text-dark mb-0">@ViewBag.TotalOrders</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 rounded-3 h-100 bg-white hover-scale">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-users fa-2x text-warning me-3"></i>
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Tổng người dùng</h6>
+                        <h3 class=" text-dark mb-0">@ViewBag.TotalUsers</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Status Section -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-clipboard-list me-2"></i> Trạng thái đơn hàng</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card bg-warning text-dark shadow-sm rounded-3 h-100 hover-scale">
+                                <div class="card-body text-center">
+                                    <h6 class="text-uppercase mb-2">Đang chờ</h6>
+                                    <h4 class=" mb-0">@ViewBag.PendingOrders</h4>
+                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" asp-route-status="Pending" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card bg-info text-white shadow-sm rounded-3 h-100 hover-scale">
+                                <div class="card-body text-center">
+                                    <h6 class="text-uppercase mb-2">Đang xử lý</h6>
+                                    <h4 class=" mb-0">@ViewBag.ProcessingOrders</h4>
+                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" asp-route-status="Processing" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card bg-success text-white shadow-sm rounded-3 h-100 hover-scale">
+                                <div class="card-body text-center">
+                                    <h6 class="text-uppercase mb-2">Đã giao</h6>
+                                    <h4 class=" mb-0">@ViewBag.DeliveredOrders</h4>
+                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" asp-route-status="Delivered" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card bg-danger text-white shadow-sm rounded-3 h-100 hover-scale">
+                                <div class="card-body text-center">
+                                    <h6 class="text-uppercase mb-2">Đã hủy</h6>
+                                    <h4 class=" mb-0">@ViewBag.CancelledOrders</h4>
+                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" asp-route-status="Cancelled" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-chart-line me-2"></i> Doanh thu theo tháng</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area" style="height: 350px;">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-chart-pie me-2"></i> Phân bố trạng thái</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px;">
+                        <canvas id="orderStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tables Section -->
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-box me-2"></i> Sản phẩm bán chạy</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th class="text-end">Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.TopProducts != null && ViewBag.TopProducts.Count > 0)
+                                {
+                                    foreach (var item in ViewBag.TopProducts)
+                                    {
+                                                <tr>
+                                                    <td>@(item.Product?.Name ?? "Unknown Product")</td>
+                                                    <td class="text-end fw-semibold">@item.TotalQuantity</td>
+                                                </tr>
+                                    }
+                                }
+                                else
+                                {
+                                        <tr>
+                                            <td colspan="2" class="text-center text-muted">Không có dữ liệu</td>
+                                        </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-3 h-100">
+                <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-receipt me-2"></i> Đơn hàng gần đây</h5>
+                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-list me-1"></i> Xem tất cả
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Trạng thái</th>
+                                    <th class="text-end">Tổng tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var order in Model)
+                                    {
+                                                <tr>
+                                                    <td><a asp-area="Admin" asp-controller="AdminOrders" asp-action="Details" asp-route-id="@order.Id" class="text-primary fw-semibold">#@order.Id</a></td>
+                                                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                                    <td>
+                                                @switch (order.Status)
+                                                {
+                                                    case "Pending":
+                                                                        <span class="badge bg-warning text-dark">Đang chờ</span>
+                                                        break;
+                                                    case "Processing":
+                                                                        <span class="badge bg-info">Đang xử lý</span>
+                                                        break;
+                                                    case "Delivered":
+                                                                        <span class="badge bg-success">Đã giao</span>
+                                                        break;
+                                                    case "Cancelled":
+                                                                        <span class="badge bg-danger">Đã hủy</span>
+                                                        break;
+                                                    default:
+                                                                        <span class="badge bg-secondary">@order.Status</span>
+                                                        break;
+                                                }
+                                                    </td>
+                                                    <td class="text-end fw-semibold">@order.TotalAmount.ToString("N0") đ</td>
+                                                </tr>
+                                    }
+                                }
+                                else
+                                {
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted">Không có dữ liệu</td>
+                                        </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <style>
+            /* Đảm bảo sử dụng biến màu từ :root */
+            .border-accent {
+                border-color: var(--accent-color) !important;
+            }
+
+            /* Tùy chỉnh jumbotron để giống hình */
+            .jumbotron {
+                background: linear-gradient(135deg, #333333, #555555); /* Sử dụng gradient từ CSS hiện tại */
+                border: 1px solid var(--accent-color);
+                box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Giữ box-shadow từ CSS hiện tại */
+            }
+
+            .hover-scale {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+            }
+            .card-header {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+            .table-hover tbody tr:hover {
+                background-color: rgba(0, 0, 0, 0.03);
+            }
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Monthly Revenue Chart
+                const revenueChartData = {
+                    labels: [
+        @if (ViewBag.MonthlyRevenue != null)
+        {
+            @foreach (var item in ViewBag.MonthlyRevenue)
+            {
+                <text>'@item.Month/@item.Year',</text>
+            }
+        }
+                    ],
+                    datasets: [{
+                        label: 'Doanh thu (VND)',
+                        data: [
+        @if (ViewBag.MonthlyRevenue != null)
+        {
+            @foreach (var item in ViewBag.MonthlyRevenue)
+            {
+                <text>@item.Revenue,</text>
+            }
+        }
+                        ],
+                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        borderColor: '#007bff',
+                        pointRadius: 4,
+                        pointBackgroundColor: '#007bff',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#007bff',
+                        borderWidth: 2,
+                        tension: 0.4
+                    }]
+                };
+
+                const revenueChartConfig = {
+                    type: 'line',
+                    data: revenueChartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
+                                            .format(value).replace('₫', '').trim() + ' đ';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + 
+                                            new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
+                                            .format(context.parsed.y).replace('₫', '').trim() + ' đ';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+
+                // Order Status Pie Chart
+                const orderStatusChartData = {
+                    labels: ['Đang chờ', 'Đang xử lý', 'Đã giao', 'Đã hủy'],
+                    datasets: [{
+                        data: [@ViewBag.PendingOrders, @ViewBag.ProcessingOrders, @ViewBag.DeliveredOrders, @ViewBag.CancelledOrders],
+                        backgroundColor: ['#f6c23e', '#36b9cc', '#1cc88a', '#e74a3b'],
+                        hoverOffset: 10
+                    }]
+                };
+
+                const orderStatusChartConfig = {
+                    type: 'doughnut',
+                    data: orderStatusChartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + ' đơn hàng';
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                };
+
+                // Initialize Charts
+                const revenueChartEl = document.getElementById('revenueChart');
+                const orderStatusChartEl = document.getElementById('orderStatusChart');
+                if (revenueChartEl) new Chart(revenueChartEl, revenueChartConfig);
+                if (orderStatusChartEl) new Chart(orderStatusChartEl, orderStatusChartConfig);
+            });
+        </script>
+}

@@ -1,0 +1,161 @@
+﻿@* Admin/AdminUsers/Edit.cshtml *@
+@model NguyenNgocThien_BanHang.ViewModels.EditUserViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card border border-gold shadow-sm">
+        <div class="card-header bg-header-gradient text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-user-edit me-2"></i>Chỉnh sửa người dùng
+            </h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label fw-medium">Email <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input asp-for="Email" class="form-control border-gold" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Password" class="form-label fw-medium">Mật khẩu mới <small class="text-muted">(để trống nếu không đổi)</small></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input asp-for="Password" class="form-control border-gold" />
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label fw-medium">Xác nhận mật khẩu mới</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input asp-for="ConfirmPassword" class="form-control border-gold" />
+                            </div>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Role" class="form-label fw-medium">Vai trò</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-user-tag"></i>
+                                </span>
+                                <select asp-for="Role" class="form-select border-gold">
+                                    <option value="">-- Chọn vai trò --</option>
+                                    @foreach (var role in ViewBag.Roles)
+                                    {
+                                            <option value="@role.Name">@role.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="FullName" class="form-label fw-medium">Họ và tên <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input asp-for="FullName" class="form-control border-gold" />
+                            </div>
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PhoneNumber" class="form-label fw-medium">Số điện thoại</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                                <input asp-for="PhoneNumber" class="form-control border-gold" />
+                            </div>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Address" class="form-label fw-medium">Địa chỉ</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-header-gradient text-white border-0">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                                <textarea asp-for="Address" class="form-control border-gold" rows="3"></textarea>
+                            </div>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="form-check form-switch mt-4">
+                                <input asp-for="IsActive" class="form-check-input" />
+                                <label asp-for="IsActive" class="form-check-label">Kích hoạt tài khoản</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-top pt-3 mt-3 d-flex justify-content-between">
+                    <a href="http://localhost:5015/Admin/AdminUsers" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-purple">
+                        <i class="fas fa-save me-1"></i> Cập nhật người dùng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+        <script>
+            $(document).ready(function() {
+                // Thêm mắt xem mật khẩu
+                function addPasswordToggle(inputId) {
+                    var inputGroup = $('#' + inputId).parent();
+                    inputGroup.append('<span class="input-group-text bg-light border-gold password-toggle" data-target="' + inputId + '"><i class="fas fa-eye"></i></span>');
+                }
+
+                addPasswordToggle('Password');
+                addPasswordToggle('ConfirmPassword');
+
+                $('.password-toggle').click(function() {
+                    var target = $(this).data('target');
+                    var input = $('#' + target);
+                    var icon = $(this).find('i');
+
+                    if (input.attr('type') === 'password') {
+                        input.attr('type', 'text');
+                        icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                    } else {
+                        input.attr('type', 'password');
+                        icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                    }
+                });
+            });
+        </script>
+                         <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

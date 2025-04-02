@@ -1,0 +1,80 @@
+﻿@* Admin/Products/Details.cshtml *@
+@model NguyenNgocThien_BanHang.Models.Product
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card border border-gold shadow-sm">
+        <div class="card-header bg-header-gradient text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">
+                <i class="fas fa-box-open me-2"></i>Chi tiết sản phẩm
+            </h3>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light me-2">
+                    <i class="fas fa-edit me-1"></i> Sửa
+                </a>
+                <a asp-action="Index" class="btn btn-light">
+                    <i class="fas fa-list me-1"></i> Danh sách
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="text-center">
+                        <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/products/default-product.jpg" : Model.ImageUrl)" 
+                             alt="@Model.Name" class="img-fluid rounded shadow-sm" style="max-height: 300px;" />
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th style="width: 200px;"><i class="fas fa-tag me-2"></i>Tên sản phẩm:</th>
+                                <td class="fw-medium">@Model.Name</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-list me-2"></i>Danh mục:</th>
+                                <td>@Model.Category.Name</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-money-bill me-2"></i>Giá:</th>
+                                <td class="text-purple fw-bold">@Model.Price.ToString("N0") đ</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-cubes me-2"></i>Tồn kho:</th>
+                                <td>@Model.Stock</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-align-left me-2"></i>Mô tả:</th>
+                                <td>@Html.Raw(Model.Description.Replace("\n", "<br>"))</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light d-flex justify-content-between">
+            <a href="http://localhost:5015/Admin/Products" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Quay lại
+            </a>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success me-2">
+                    <i class="fas fa-edit me-1"></i> Sửa
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                    <i class="fas fa-trash me-1"></i> Xóa
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

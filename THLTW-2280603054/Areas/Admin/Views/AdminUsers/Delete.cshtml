@@ -1,0 +1,90 @@
+﻿@* Admin/AdminUsers/Delete.cshtml *@
+@model NguyenNgocThien_BanHang.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Xóa người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card border border-danger shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-exclamation-triangle me-2"></i>Xác nhận xóa người dùng
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong>Cảnh báo:</strong> Bạn có chắc chắn muốn xóa người dùng này? Hành động này không thể hoàn tác.
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0 text-center">
+                    <div class="bg-light rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 120px; height: 120px;">
+                        <i class="fas fa-user-circle fa-4x text-muted"></i>
+                    </div>
+                    <h5 class="mt-2 fw-bold">@Model.FullName</h5>
+                    <div>
+                        @foreach (var role in Model.Roles)
+                        {
+                                <span class="badge bg-primary me-1">@role</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th style="width: 150px;"><i class="fas fa-envelope me-2"></i>Email:</th>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-user me-2"></i>Tên đăng nhập:</th>
+                                <td>@Model.UserName</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-phone me-2"></i>Số điện thoại:</th>
+                                <td>@(string.IsNullOrEmpty(Model.PhoneNumber) ? "Chưa cập nhật" : Model.PhoneNumber)</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-map-marker-alt me-2"></i>Địa chỉ:</th>
+                                <td>@(string.IsNullOrEmpty(Model.Address) ? "Chưa cập nhật" : Model.Address)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @if (Model.Email == "admin@dylanshop.com")
+            {
+                    <div class="alert alert-danger mt-4">
+                        <i class="fas fa-ban me-2"></i>
+                        <strong>Không thể xóa:</strong> Tài khoản admin mặc định không thể bị xóa.
+                    </div>
+            }
+
+            <form asp-action="Delete" method="post" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    @if (Model.Email != "admin@dylanshop.com")
+                    {
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-1"></i> Xác nhận xóa
+                            </button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+                             <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                            <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

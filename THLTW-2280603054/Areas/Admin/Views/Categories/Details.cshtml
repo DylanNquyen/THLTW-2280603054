@@ -1,0 +1,118 @@
+﻿@* Admin/Categories/Details.cshtml *@
+@model NguyenNgocThien_BanHang.Models.Category
+@{
+    ViewData["Title"] = "Chi tiết danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card border border-gold shadow-sm">
+        <div class="card-header bg-header-gradient text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">
+                <i class="fas fa-tag me-2"></i>Chi tiết danh mục
+            </h3>
+            <div>
+                <a href="http://localhost:5015/Admin/Categories/Edit/1" asp-route-id="@Model.Id" class="btn btn-outline-light me-2">
+                    <i class="fas fa-edit me-1"></i> Sửa
+                </a>
+                <a href="http://localhost:5015/Admin/Categories" class="btn btn-light">
+                    <i class="fas fa-list me-1"></i> Danh sách
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th style="width: 150px;"><i class="fas fa-hashtag me-2"></i>ID:</th>
+                                <td>@Model.Id</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-tag me-2"></i>Tên danh mục:</th>
+                                <td class="fw-medium">@Model.Name</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-align-left me-2"></i>Mô tả:</th>
+                                <td>@Html.Raw(Model.Description.Replace("\n", "<br>"))</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-boxes me-2"></i>Số sản phẩm:</th>
+                                <td>@(Model.Products?.Count ?? 0)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h5 class="border-bottom border-gold pb-2">
+                    <i class="fas fa-box-open me-2"></i>Danh sách sản phẩm trong danh mục
+                </h5>
+
+                @if (Model.Products != null && Model.Products.Any())
+                {
+                        <div class="table-responsive mt-3">
+                            <table class="table table-hover border">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col" style="width: 80px;">Hình ảnh</th>
+                                        <th scope="col">Tên sản phẩm</th>
+                                        <th scope="col" class="text-end">Giá</th>
+                                        <th scope="col" class="text-center">Tồn kho</th>
+                                        <th scope="col" class="text-center" style="width: 100px;">Tác vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var product in Model.Products)
+                                {
+                                            <tr>
+                                                <td>
+                                                    <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/products/default-product.jpg" : product.ImageUrl)" 
+                                                        alt="@product.Name" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                                </td>
+                                                <td>@product.Name</td>
+                                                <td class="text-end text-purple fw-bold">@product.Price.ToString("N0") đ</td>
+                                                <td class="text-center">@product.Stock</td>
+                                                <td class="text-center">
+                                                    <a asp-area="Admin" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                }
+                else
+                {
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Chưa có sản phẩm nào trong danh mục này.
+                        </div>
+                }
+            </div>
+        </div>
+        <div class="card-footer bg-light d-flex justify-content-between">
+            <a href="http://localhost:5015/Admin/Categories" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Quay lại
+            </a>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success me-2">
+                    <i class="fas fa-edit me-1"></i> Sửa
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                    <i class="fas fa-trash me-1"></i> Xóa
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+          
+            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+            <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -1,0 +1,102 @@
+﻿@* Admin/Categories/Index.cshtml *@
+@model IEnumerable<NguyenNgocThien_BanHang.Models.Category>
+@{
+    ViewData["Title"] = "Quản lý danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card border border-gold shadow-sm">
+        <div class="card-header bg-header-gradient text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0"><i class="fas fa-tags me-2"></i>Quản lý danh mục</h3>
+            <a href="http://localhost:5015/Admin/Categories/Create" class="btn btn-gold">
+                <i class="fas fa-plus me-1"></i> Thêm danh mục mới
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <form asp-action="Index" method="get" class="d-flex">
+                        <div class="input-group">
+                            <span class="input-group-text bg-header-gradient text-white border-0">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" name="searchString" class="form-control border-gold" placeholder="Tìm kiếm danh mục..." value="@ViewBag.CurrentFilter">
+                            <button type="submit" class="btn btn-purple">
+                                <i class="fas fa-search me-1"></i> Tìm kiếm
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle border">
+                    <thead class="bg-header-gradient text-white">
+                        <tr>
+                            <th scope="col" style="width: 50px;">#</th>
+                            <th scope="col">Tên danh mục</th>
+                            <th scope="col">Mô tả</th>
+                            <th scope="col" class="text-center">Số sản phẩm</th>
+                            <th scope="col" class="text-center" style="width: 150px;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td class="fw-medium">@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td class="text-center">
+                                    @(item.Products?.Count ?? 0)
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                                <a href="http://localhost:5015/Admin/Categories/Details/1" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="Chi tiết">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                                <a href="http://localhost:5015/Admin/Categories/Edit/1" class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                                <a href="http://localhost:5015/Admin/Categories/Delete/1" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Xóa">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (!Model.Any())
+            {
+                    <div class="text-center py-5">
+                        <i class="fas fa-tag fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Không có danh mục nào được tìm thấy</p>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <script>
+            $(document).ready(function() {
+                // Kích hoạt tooltips
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                });
+
+                // Hiệu ứng hiển thị dòng khi tải trang
+                $('tbody tr').each(function(index) {
+                    $(this).css('opacity', 0);
+                    $(this).delay(100 * index).animate({opacity: 1}, 500);
+                });
+            });
+        </script>
+             <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+            <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
